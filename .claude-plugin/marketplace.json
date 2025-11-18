@@ -1,0 +1,28 @@
+{
+  "name": "straion-claude-marketplace",
+  "owner": "Straion",
+  "plugins": [
+    {
+      "name": "straion",
+      "source": {
+        "github": "straion-dev/straion-claude-plugin"
+      },
+      "description": "Integrate straion requirements validation with Claude Code workflows. Automatically inject requirements when working on todos, validate specifications and make agents understand your company.",
+      "version": "0.0.1",
+      "author": "Straion",
+      "homepage": "https://github.com/straion-dev/straion-claude-plugin",
+      "repository": "https://github.com/straion-dev/straion-claude-plugin",
+      "license": "ELv2",
+      "keywords": [
+        "requirements",
+        "validation",
+        "straion",
+        "specifications",
+        "todo-integration",
+        "toon",
+        "workflow"
+      ],
+      "category": "Development"
+    }
+  ]
+}
