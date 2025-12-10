@@ -1,28 +1,13 @@
 {
   "name": "straion-claude-marketplace",
-  "owner": "Straion",
+  "owner": {
+    "name": "Fabian Friedl"
+  },
   "plugins": [
     {
       "name": "straion",
-      "source": {
-        "github": "straion-dev/straion-claude-plugin"
-      },
-      "description": "Integrate straion requirements validation with Claude Code workflows. Automatically inject requirements when working on todos, validate specifications and make agents understand your company.",
-      "version": "0.0.1",
-      "author": "Straion",
-      "homepage": "https://github.com/straion-dev/straion-claude-plugin",
-      "repository": "https://github.com/straion-dev/straion-claude-plugin",
-      "license": "ELv2",
-      "keywords": [
-        "requirements",
-        "validation",
-        "straion",
-        "specifications",
-        "todo-integration",
-        "toon",
-        "workflow"
-      ],
-      "category": "Development"
+      "source": "./straion-claude-plugin",
+      "description": "Requirements-driven development for Claude Code. Validate specs and tasks against project requirements, break down features with automatic compliance checking, and ensure every implementation meets organizational standards."
     }
   ]
 }
