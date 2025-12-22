@@ -58,12 +58,42 @@ Planning Progress:
 
 **Process**:
 
-1. **Understand the request**: Ask clarifying questions about:
+1. **Understand the request**: Gather context through strategic clarification.
 
-   - What problem are we solving?
-   - Who are the users/stakeholders?
-   - What are the key requirements or constraints?
-   - What does success look like?
+   **When to use AskUserQuestion**:
+   - Request is ambiguous or vague (e.g., "add auth" without details)
+   - Multiple valid architectural approaches exist
+   - Scope boundaries are unclear (what's in vs out of scope)
+   - Technical constraints or preferences are unstated
+   - User preferences will significantly impact the solution
+   - Trade-offs exist between different approaches
+
+   **Key questions to clarify**:
+   - What problem are we solving? (Use AskUserQuestion when problem domain is unclear)
+   - Who are the users/stakeholders? (Present options: end users, admins, developers, external partners)
+   - What are the key requirements or constraints? (Offer choices: timeline, resources, compatibility, compliance)
+   - What does success look like? (Help define measurable acceptance criteria)
+
+   **Example AskUserQuestion usage**:
+   ```
+   AskUserQuestion with questions like:
+   - Question: "What type of authentication do you want to implement?"
+     Header: "Auth method"
+     Options:
+       - JWT tokens (stateless, scalable, good for APIs)
+       - Session-based (stateful, simpler, good for traditional webapps)
+       - OAuth/SSO (third-party, enterprise-ready)
+       - Multi-factor (highest security, more complex)
+
+   - Question: "Which features should be included in the initial release?"
+     Header: "Scope"
+     multiSelect: true
+     Options:
+       - User registration and login
+       - Password reset flow
+       - Email verification
+       - Social login integration
+   ```
 
 2. **Create lightweight spec**: Write a concise specification covering:
 
@@ -109,6 +139,26 @@ Planning Progress:
    - Incorporate requirement recommendations
    - Update spec document if saved
 
+   **When to use AskUserQuestion at this step**:
+   - Validation reveals multiple valid approaches to fix violations
+   - Partial compliance can be addressed in different ways with trade-offs
+   - Requirement interpretation needs user input or business decision
+   - Prioritization required when multiple improvements are suggested
+
+   **Example AskUserQuestion usage**:
+   ```
+   When validation finds: "Missing MFA support (REQ-234) and email verification (REQ-456)"
+
+   AskUserQuestion:
+   - Question: "How should we address the security requirement gaps?"
+     Header: "Approach"
+     Options:
+       - Add both MFA and email verification (complete compliance, more work)
+       - Add email verification only, defer MFA (partial compliance, quicker)
+       - Add MFA only, defer email verification (focus on high-value security)
+       - Request requirement exemption (requires approval process)
+   ```
+
 4. **Re-validate if major changes**: If significant changes were made, validate again to confirm compliance.
 
 **Decision Point**: Only proceed to Step 3 after spec is compliant (no critical violations).
@@ -147,6 +197,35 @@ Planning Progress:
    - Reorder based on dependencies
    - Add missing tasks
    - Clarify vague task descriptions
+
+   **When to use AskUserQuestion at this step**:
+   - Multiple valid implementation sequences exist
+   - Task granularity has trade-offs (many small vs fewer large tasks)
+   - Incremental delivery options exist
+   - Technical approach decisions affect task breakdown
+   - Risk/complexity trade-offs in task ordering
+
+   **Example AskUserQuestion usage**:
+   ```
+   When task breakdown offers choices:
+
+   AskUserQuestion:
+   - Question: "What implementation approach should we take?"
+     Header: "Strategy"
+     Options:
+       - Sequential (complete each feature fully before next, easier to track)
+       - Parallel (work on multiple features simultaneously, faster delivery)
+       - Incremental (deliver minimal feature first, then enhance, early feedback)
+       - Risk-first (tackle complex/risky tasks first, fail fast approach)
+
+   - Question: "What testing level should we target?"
+     Header: "Testing"
+     Options:
+       - Unit tests only (fast, basic coverage)
+       - Unit + integration tests (comprehensive, slower)
+       - Unit + integration + e2e (complete coverage, slowest)
+       - Critical paths only (balanced approach, focus on high-value)
+   ```
 
 **Output**: A validated, ordered list of implementation tasks ready to execute.
 
@@ -404,6 +483,197 @@ Every workflow completion should:
 - Pause and document the blocker
 - Update todos to reflect current state
 - Suggest next steps or alternatives
+
+---
+
+## Best Practices for AskUserQuestion
+
+The AskUserQuestion tool is a powerful way to gather structured input from users and guide them through complex decisions. Use it strategically throughout the workflow.
+
+### When to Use AskUserQuestion
+
+**✅ DO use AskUserQuestion when**:
+- Multiple valid approaches exist with meaningful trade-offs
+- Scope or requirement boundaries need clarification
+- User preferences significantly impact the implementation
+- Architecture or technology choices require validation
+- Risk/complexity trade-offs exist
+- Prioritization decisions are needed
+- Business or domain knowledge is required
+
+**❌ DON'T use AskUserQuestion when**:
+- Simple yes/no that doesn't affect the approach
+- Best practice is clear and unambiguous
+- Only gathering informational context (use conversational text)
+- Asking too many questions at once (max 4 questions, prefer 2-3)
+- The question is purely conversational without actionable options
+
+### How to Structure Effective Questions
+
+#### 1. **Header** (max 12 characters)
+Short label that appears as a chip/tag. Examples:
+- "Auth method"
+- "Scope"
+- "Priority"
+- "Testing"
+- "Approach"
+- "Database"
+
+#### 2. **Question** (clear and specific)
+Complete question ending with "?". Examples:
+- "What type of authentication do you want to implement?"
+- "Which features should be included in the initial release?"
+- "What implementation approach should we take?"
+- "What testing level should we target?"
+
+#### 3. **Options** (2-4 choices)
+Each option needs:
+- **label**: Concise choice (1-5 words)
+- **description**: Explain trade-offs, implications, or context
+
+Good option structure:
+```
+{
+  label: "JWT tokens",
+  description: "Stateless, scalable, ideal for APIs and microservices. Requires client-side storage."
+}
+```
+
+Bad option structure:
+```
+{
+  label: "JWT",
+  description: "Use JWT"  // Too vague, no context
+}
+```
+
+#### 4. **multiSelect** (boolean)
+- Set `true` when choices aren't mutually exclusive
+- User can select multiple options
+- Example: "Which features should we include?" (can pick multiple features)
+
+- Set `false` (default) when choices are mutually exclusive
+- User picks one option only
+- Example: "Which database should we use?" (can only pick one)
+
+### Integration Points in Workflow
+
+#### Step 1: Idea to Specification
+Use AskUserQuestion to:
+- Clarify ambiguous requirements
+- Define scope boundaries
+- Choose architectural approaches
+- Identify constraints and priorities
+
+#### Step 2: Validate Specification
+Use AskUserQuestion to:
+- Resolve multiple fix approaches for violations
+- Prioritize partial compliance issues
+- Make business decisions on requirement interpretation
+- Choose between requirement exemptions or implementation
+
+#### Step 3: Break Down into Tasks
+Use AskUserQuestion to:
+- Select implementation sequence (sequential, parallel, incremental)
+- Choose testing strategy and coverage level
+- Decide task granularity
+- Prioritize high-risk vs low-risk tasks
+
+#### Step 5: Implement
+Use AskUserQuestion to:
+- Resolve implementation blockers with multiple solutions
+- Choose between refactoring approaches
+- Decide on error handling strategies
+- Select library or framework options
+
+### Examples of Well-Structured Questions
+
+#### Example 1: Single-select with trade-offs
+```
+Question: "What authentication method should we implement?"
+Header: "Auth method"
+multiSelect: false
+Options:
+  - label: "JWT tokens"
+    description: "Stateless, scalable, ideal for APIs. Requires client-side storage and token refresh logic."
+
+  - label: "Session-based"
+    description: "Stateful, simpler implementation. Good for traditional webapps. Requires server-side session store."
+
+  - label: "OAuth/SSO"
+    description: "Third-party authentication, enterprise-ready. More complex setup, requires provider integration."
+```
+
+#### Example 2: Multi-select for features
+```
+Question: "Which security features should be included?"
+Header: "Security"
+multiSelect: true
+Options:
+  - label: "Email verification"
+    description: "Confirm user email addresses before activation. Prevents fake accounts."
+
+  - label: "Multi-factor auth"
+    description: "Add TOTP or SMS-based second factor. Significantly improves security."
+
+  - label: "Password reset"
+    description: "Secure password recovery flow via email. Essential for production apps."
+
+  - label: "Rate limiting"
+    description: "Prevent brute force attacks on login. Recommended for public-facing apps."
+```
+
+#### Example 3: Implementation approach
+```
+Question: "How should we roll out this feature?"
+Header: "Strategy"
+multiSelect: false
+Options:
+  - label: "Incremental (Recommended)"
+    description: "Build minimal viable version first, gather feedback, then enhance. Lower risk, faster initial delivery."
+
+  - label: "Complete build"
+    description: "Implement all requirements before release. Higher risk but complete feature set."
+
+  - label: "Parallel tracks"
+    description: "Split into independent work streams. Faster delivery if team has capacity."
+```
+
+### Common Patterns
+
+#### Pattern 1: Scope Definition
+When spec is vague, help user define boundaries:
+- Question about MVP vs full feature set
+- Question about platforms/environments to support
+- Question about user roles to support
+
+#### Pattern 2: Technical Choice
+When multiple technologies could work:
+- Present 2-4 options with clear trade-offs
+- Explain implications of each choice
+- Recommend one if appropriate (mark as "Recommended")
+
+#### Pattern 3: Risk Management
+When trade-offs involve risk:
+- Present risk-first vs incremental approaches
+- Explain complexity and timeline implications
+- Help user make informed decisions
+
+#### Pattern 4: Prioritization
+When multiple items compete:
+- Use multiSelect to let user choose priorities
+- Present must-have vs nice-to-have
+- Frame in terms of business value
+
+### Tips for Success
+
+1. **Keep it focused**: Ask 2-3 related questions maximum in one call
+2. **Provide context**: Explain why the choice matters
+3. **Recommend when appropriate**: Mark your suggested option as "(Recommended)"
+4. **Explain trade-offs**: Help users understand implications
+5. **Use multiSelect wisely**: Only when choices are truly independent
+6. **Follow up on answers**: Use the user's selections to guide implementation
+7. **Don't over-ask**: If best practice is clear, just do it
 
 ---
 
