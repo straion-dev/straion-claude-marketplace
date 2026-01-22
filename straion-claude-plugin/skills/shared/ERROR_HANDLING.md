@@ -2,10 +2,11 @@
 
 ## Straion CLI Errors
 
-| Error                | Cause           | Solution                                                             |
-| -------------------- | --------------- | -------------------------------------------------------------------- |
-| Authentication error | Not logged in   | Inform the user that they must run `straion login` on their machine. |
-| Network error        | API unavailable | Check internet connection                                            |
+| Error                      | Cause                                                  | Solution                                                              |
+| -------------------------- | ------------------------------------------------------ | --------------------------------------------------------------------- |
+| command not found: straion | The cli is not installed, neither globally nor locally | Inform the user to install the straion cli either globally or locally |
+| Authentication error       | Not logged in                                          | Inform the user that they must run `straion login` on their machine.  |
+| Network error              | API unavailable                                        | Check internet connection                                             |
 
 ## Workflow Errors
 
