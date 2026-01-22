@@ -35,7 +35,7 @@ Add to your project's `.claude/settings.json`:
     "straion": {
       "source": {
         "source": "github",
-        "repo": "your-org/straion-marketplace"
+        "repo": "straion-dev/straion-marketplace"
       }
     }
   },

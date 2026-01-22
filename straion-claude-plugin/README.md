@@ -15,11 +15,3 @@ Install the straion plugin directly from GitHub:
 ```bash
 /plugin install https://github.com/straion-dev/straion-claude-plugin.git
 ```
-
-### First-Time Setup
-
-Configure your straion API credentials:
-
-```bash
-/straion-configure
-```
