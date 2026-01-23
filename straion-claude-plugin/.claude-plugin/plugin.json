@@ -1,9 +1,9 @@
 {
   "name": "straion",
-  "version": "0.0.35",
+  "version": "0.0.40",
   "description": "Requirements-driven development for Claude Code. Validate specs and tasks against project requirements, break down features with automatic compliance checking, and ensure every implementation meets organizational standards.",
   "author": {
-    "name": "Straion",
-    "email": "fabian@straion.com"
+    "name": "Straion FlexCo",
+    "email": "support@straion.com"
   }
 }

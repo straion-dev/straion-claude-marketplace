@@ -8,7 +8,7 @@ process.stdin.on("data", (chunk) => (input += chunk));
 process.stdin.on("end", () => {
   const { session_id } = JSON.parse(input);
   try {
-    execSync(`straion session-start --session-id "${session_id}"`, {
+    execSync(`straion session-start --session "${session_id}"`, {
       stdio: "inherit",
     });
   } catch (e) {
