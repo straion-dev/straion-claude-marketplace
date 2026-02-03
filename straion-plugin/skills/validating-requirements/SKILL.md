@@ -38,31 +38,34 @@ Use the Bash tool to call the Straion CLI to find matching requirements.
 
 ### Command Syntax
 
+Inside Claude Code use `$CLAUDE_SESSION_ID` for `<session_id>` below.
+Any other agent - replace `<session_id>` with your appropriate value for this chat session.
+
 ```bash
-straion find-requirements --session $CLAUDE_SESSION_ID --title "<title>" --body "<body>" --summary "<summary>"
+straion find-requirements --session "<session_id>" --title "<title>" --body "<body>" --summary "<summary>"
 ```
 
 ### Parameters
 
-| Parameter   | Required | Description                                                |
-| ----------- | -------- | ---------------------------------------------------------- |
-| `--session` | Yes      | Session ID (use `$CLAUDE_SESSION_ID` environment variable) |
-| `--title`   | No       | Title of the task being validated                          |
-| `--body`    | No       | Detailed body/content of the task                          |
-| `--summary` | No       | Summary of the entire plan/context                         |
+| Parameter   | Required | Description                                                     |
+| ----------- | -------- | --------------------------------------------------------------- |
+| `--session` | Yes      | Session ID (e.g. use `$CLAUDE_SESSION_ID` environment variable) |
+| `--title`   | No       | Title of the task being validated                               |
+| `--body`    | No       | Detailed body/content of the task                               |
+| `--summary` | No       | Summary of the entire plan/context                              |
 
 ### Example Calls
 
 **Simple task validation:**
 
 ```bash
-straion find-requirements --session $CLAUDE_SESSION_ID --title "Add user authentication" --body "Implement JWT-based authentication with login, logout, and token refresh endpoints"
+straion find-requirements --session "<session_id>" --title "Add user authentication" --body "Implement JWT-based authentication with login, logout, and token refresh endpoints"
 ```
 
 **Spec validation with full context:**
 
 ```bash
-straion find-requirements --session $CLAUDE_SESSION_ID --title "User Profile Component" --body "Create a React component for user profiles with avatar, name, and role display using Radix UI components" --summary "Building a user management dashboard with profile viewing and editing capabilities"
+straion find-requirements --session "<session_id>" --title "User Profile Component" --body "Create a React component for user profiles with avatar, name, and role display using Radix UI components" --summary "Building a user management dashboard with profile viewing and editing capabilities"
 ```
 
 ### Output
