@@ -18,11 +18,6 @@ Add this marketplace to Claude Code:
 
 **Quick Start:**
 
-```bash
-# Configure API credentials
-/straion-configure
-```
-
 ## For Teams
 
 ### Automatic Installation
@@ -56,7 +51,6 @@ Commit this file. Team members will automatically:
 ```bash
 /plugin marketplace add straion-dev/straion-claude-marketplace
 /plugin install straion@straion-claude-marketplace
-/straion-configure
 ```
 
 ## Updating Plugins
@@ -76,18 +70,14 @@ Update plugin:
 ## Requirements
 
 - Claude Code (latest version)
-- Node.js (for plugin execution)
+- Node.js (22+) (for plugin execution)
 - Straion API access (API key required)
 
 ## Support
 
-- **Plugin Documentation**: [straion-plugin](https://github.com/straion-dev/straion-claude-plugin)
+- **Plugin Documentation**: [straion-plugin](https://github.com/straion-dev/straione-plugin)
 - **Issues**: [GitHub Issues](https://github.com/straion-dev/straion-claude-marketplace/issues)
 - **Straion API**: Refer to your straion documentation
-
-## Adding Plugins to This Marketplace
-
-Want to contribute a plugin? See [CONTRIBUTING.md](CONTRIBUTING.md)
 
 ## Marketplace Management
 
