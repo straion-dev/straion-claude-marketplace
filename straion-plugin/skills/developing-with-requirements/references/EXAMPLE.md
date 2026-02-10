@@ -10,15 +10,16 @@ Claude: "Creating spec for SSO login support..."
 [Creates spec]
 
 Claude: "Validating spec against requirements..."
-[Calls Skill(straion:validating-requirements)]
+[Runs straion find-requirements CLI]
 
 Claude: "Validation found REQ-234 requires MFA for enterprise SSO. Adding to spec."
 [Updates spec, re-validates]
 
 Claude: "Spec compliant! Breaking down into tasks..."
-[Calls Skill(straion:planning-implementation)]
-[Enters Plan Mode - user sees plan being built]
-[Exits Plan Mode - user approves]
+[Creates implementation plan with validated tasks]
+[Presents plan for user approval]
+
+User: [Approves plan]
 
 Claude: "Plan approved! Implementing..."
-[Implements with TodoWrite tracking]
+[Implements with progress tracking]

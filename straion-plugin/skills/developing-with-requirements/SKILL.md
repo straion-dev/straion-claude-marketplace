@@ -1,179 +1,122 @@
 ---
 name: developing-with-requirements
 description: |
-  Guides users through requirements-first feature implementation from idea to production code. Validates specs, tasks, and implementation against project requirements at every step. Use when building features, implementing specs, or when user says "help me build", "implement this", "add feature", or wants requirements compliance checking.
-context: fork
-allowed-tools: Bash, Skill
+  Guides users through requirements-first feature implementation from idea to production code. Validates specs, tasks, and implementation against project requirements at every step. Use when building features, implementing specs, creating implementation plans, breaking down specs into tasks, or when user says "help me build", "implement this", "add feature", "plan this", "break down this spec", "create tasks", or wants requirements compliance.
 ---
 
 # Developing with Requirements
 
-## Contents
-
-- [Mission](#mission)
-- [Core Philosophy](#core-philosophy)
-- [Workflow](#workflow)
-- [Workflow Modes](#workflow-modes)
-- [Skill Coordination](#skill-coordination)
-- [User Interaction](#user-interaction)
-- [Error Handling](#error-handling)
-
----
-
-## Mission
-
-Guide users through a systematic, requirements-first approach to software development. Every feature aligns with project requirements and quality standards.
-
 ## Core Philosophy
 
-- **Requirements First**: Build the RIGHT features that meet documented requirements
-- **Systematic Validation**: Validate at multiple levels to catch issues early
+- **Requirements First**: Build features that meet documented requirements
+- **Systematic Validation**: Validate at every level to catch issues early
 - **Guided Process**: Clear structure while remaining flexible
 
 ## Workflow
 
-### Step 1: Idea to Specification
+### Step 1: Idea → Specification
 
-**Goal**: Transform a rough idea into a clear, lightweight specification.
+Transform a rough idea into a clear, lightweight specification.
 
-**Process**:
-
-1. **Understand the request** using `AskUserQuestion` when ambiguous
-2. **Create lightweight spec** covering:
+1. Understand the request — ask clarifying questions when ambiguous
+2. Create a lightweight spec covering:
    - Overview, Goals, Scope
    - Key Requirements (must-have vs nice-to-have)
    - Acceptance Criteria, Technical Approach
    - Open Questions
 
----
-
 ### Step 2: Validate Specification
 
-**Goal**: Ensure the spec complies with project requirements BEFORE planning.
+Ensure the spec complies with project requirements BEFORE planning.
 
-**Process**:
+Run the Straion CLI to find matching requirements:
 
-1. **Call validating-requirements**:
+```bash
+straion find-requirements \
+  --session "<session_id>" \
+  --title "<spec title>" \
+  --body "<full spec content>" \
+  --summary "<brief summary>"
+```
 
-   ```
-   Skill(straion:validating-requirements)
-   ```
+See [../shared/STRAION_CLI.md](../shared/STRAION_CLI.md) for full
+CLI reference and session ID details per agent.
 
-   Pass the full spec or detailed feature description.
-
-2. **Review feedback**:
-   - ✅ Compliant: Proceed
-   - ⚠️ Partial: Note adjustments needed
-   - ❌ Violations: Must fix before proceeding
-
-3. **Refine spec** based on feedback
-
-4. **Re-validate** if major changes were made
+Analyze compliance for each returned requirement:
+- ✅ **Compliant**: Proceed
+- ⚠️ **Partial**: Note adjustments needed, refine spec
+- ❌ **Violations**: Must fix before proceeding — re-validate after fixes
 
 **Gate**: Only proceed when spec has no critical violations.
 
----
-
 ### Step 3: Plan & Validate Tasks
 
-**Goal**: Break down the validated spec into compliant implementation tasks.
+Break down the validated spec into compliant implementation tasks.
 
-**Process**:
+1. Explore the codebase for architecture patterns and conventions
+2. Create ordered implementation tasks with acceptance criteria
 
-1. **Call planning-implementation**:
+**VALIDATION GATE: Each task MUST be validated before adding to plan**
 
-   ```
-   Skill(straion:planning-implementation)
-   ```
+3. For each task:
+   - Draft task description + acceptance criteria
+   - Run `straion find-requirements` for this task:
+     ```bash
+     straion find-requirements \
+       --session "<session_id>" \
+       --title "<task title>" \
+       --body "<task description>" \
+       --summary "<overall spec summary>"
+     ```
+   - Review compliance, adjust task if violations found
+   - Add validation status: ✅ Compliant / ⚠️ Partial / ❌ Violation
 
-   This skill will:
-   - Enter Plan Mode for user approval
-   - Gather codebase context
-   - Create detailed tasks
-   - Validate each task against requirements
-   - Exit Plan Mode for user approval
+4. Address any violations or gaps across all tasks
+5. Present complete, validated plan for user approval
 
-2. **User approves the plan** via Plan Mode UI
+**Do NOT present plan until all tasks pass validation**
 
-3. **Proceed to implementation** once approved
-
-**Output**: User-approved, validated task list ready for implementation.
-
----
+6. Wait for user approval before implementing
 
 ### Step 4: Implement
 
-**Goal**: Execute the validated tasks while maintaining compliance.
+Execute the validated tasks while maintaining compliance.
 
-**Process**:
-
-1. **Track with TodoWrite**: Create todo for each task, mark progress
-2. **Implement task by task**: Follow task descriptions and validation feedback
-3. **Validate as needed**: For complex tasks, call `validating-requirements`
-4. **Test and verify**: Write tests, ensure acceptance criteria are met
-
----
+1. Track progress (use todo tracking if available)
+2. Implement task by task following descriptions and validation feedback
+3. For complex tasks, re-validate against requirements as needed
+4. Write tests and verify acceptance criteria are met
 
 ## Workflow Modes
 
-| Mode              | When                     | Flow               |
-| ----------------- | ------------------------ | ------------------ |
-| **Full**          | Starting from rough idea | Step 1 → 2 → 3 → 4 |
-| **From Spec**     | Have existing spec       | Step 2 → 3 → 4     |
-| **Validate Only** | Just check compliance    | Step 2 only        |
-| **Plan Only**     | Just create tasks        | Step 3 only        |
-
----
-
-## Skill Coordination
-
-### validating-requirements
-
-- **When**: Steps 2, and optionally during Step 4
-- **Purpose**: Validate specs, tasks, or code against requirements
-- **How**: `Skill(straion:validating-requirements)` with detailed description
-
-### planning-implementation
-
-- **When**: Step 3
-- **Purpose**: Break spec into validated tasks
-- **How**: `Skill(straion:planning-implementation)` with spec content
-- **Note**: Uses Plan Mode for user approval, internally calls validating-requirements for each task
-
----
+| Mode | When | Flow |
+|------|------|------|
+| Full | Starting from rough idea | Step 1 → 2 → 3 → 4 |
+| From Spec | Have existing spec | Step 2 → 3 → 4 |
+| Validate Only | Just check compliance | Step 2 only |
+| Plan Only | Create validated implementation tasks | Step 3 only |
 
 ## User Interaction
 
 - **Be Conversational**: Explain what you're doing, ask when unclear
-- **Be Transparent**: Show validation results, explain violations, recommend solutions
+- **Be Transparent**: Show validation results, explain violations
 - **Be Flexible**: Adapt to existing artifacts, skip unnecessary steps
-- **Track Progress**: Use TodoWrite for multi-task implementations
-
----
+- **Track Progress**: Use todo tracking for multi-task implementations
 
 ## Example
 
-See [EXAMPLE.md](./references/EXAMPLE.md) for a complete SSO login implementation walkthrough.
-
----
-
-## Error Handling
-
-See [../shared/ERROR_HANDLING.md](../shared/ERROR_HANDLING.md) for common error patterns.
-
----
+See [references/EXAMPLE.md](references/EXAMPLE.md) for a complete SSO
+login implementation walkthrough.
 
 ## Reference
-
-- [Terminology](../shared/TERMINOLOGY.md)
-- [Error Handling](../shared/ERROR_HANDLING.md)
-
----
+- CLI usage: [../shared/STRAION_CLI.md](../shared/STRAION_CLI.md)
+- Terminology: [../shared/TERMINOLOGY.md](../shared/TERMINOLOGY.md)
+- Error handling: [../shared/ERROR_HANDLING.md](../shared/ERROR_HANDLING.md)
 
 ## Success Criteria
 
-1. ✅ User understands what was built and why
-2. ✅ Spec and tasks are validated
-3. ✅ Critical violations are addressed
-4. ✅ Implementation works and passes tests
-5. ✅ Solution meets requirements
+✅ User understands what was built and why
+✅ Spec and tasks are validated
+✅ Critical violations are addressed
+✅ Implementation works and passes tests
+✅ Solution meets requirements
