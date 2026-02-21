@@ -67,7 +67,7 @@ Update plugin:
 /plugin update straion@straion-marketplace
 ```
 
-## Requirements
+## Prerequisites
 
 - Claude Code (latest version)
 - Node.js (22+) (for plugin execution)

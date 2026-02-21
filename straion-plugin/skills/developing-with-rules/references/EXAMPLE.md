@@ -2,15 +2,15 @@
 
 User: "I want to add SSO login support"
 
-Claude: "I'll guide you through SSO with requirement validation at every step."
+Claude: "I'll guide you through SSO with rule validation at every step."
 
-[Asks clarifying questions about providers, existing auth, requirements]
+[Asks clarifying questions about providers, existing auth, rules]
 
 Claude: "Creating spec for SSO login support..."
 [Creates spec]
 
-Claude: "Validating spec against requirements..."
-[Runs straion find-requirements CLI]
+Claude: "Validating spec against rules..."
+[Runs straion find-rules CLI]
 
 Claude: "Validation found REQ-234 requires MFA for enterprise SSO. Adding to spec."
 [Updates spec, re-validates]
