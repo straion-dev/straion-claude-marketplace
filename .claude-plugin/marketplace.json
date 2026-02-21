@@ -7,7 +7,7 @@
     {
       "name": "straion",
       "source": "./straion-plugin",
-      "description": "Requirements-driven development for Claude Code. Validate specs and tasks against project requirements, break down features with automatic compliance checking, and ensure every implementation meets organizational standards."
+      "description": "Rules-driven development for Claude Code. Validate specs and tasks against project rules, break down features with automatic compliance checking, and ensure every implementation meets organizational standards."
     }
   ]
 }
