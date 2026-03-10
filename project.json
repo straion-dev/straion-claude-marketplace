@@ -1,0 +1,8 @@
+{
+  "name": "marketplace",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/marketplace",
+  "projectType": "library",
+  "targets": {},
+  "tags": []
+}

@@ -1,3 +1,7 @@
+> **Note**: This repository is a read-only mirror, automatically synced from
+> the internal Straion monorepo. Direct commits and PRs to this repo will be
+> overwritten on the next sync.
+
 # Straion Marketplace for Claude Code
 
 Official marketplace for Straion's Claude Code plugins.

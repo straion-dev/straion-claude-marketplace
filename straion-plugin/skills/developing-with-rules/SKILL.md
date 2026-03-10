@@ -43,6 +43,7 @@ See [../shared/STRAION_CLI.md](../shared/STRAION_CLI.md) for full
 CLI reference and session ID details per agent.
 
 Analyze compliance for each returned rule:
+
 - ✅ **Compliant**: Proceed
 - ⚠️ **Partial**: Note adjustments needed, refine spec
 - ❌ **Violations**: Must fix before proceeding — re-validate after fixes
@@ -59,6 +60,7 @@ Break down the validated spec into compliant implementation tasks.
 **VALIDATION GATE: Each task MUST be validated before adding to plan**
 
 3. For each task:
+
    - Draft task description + acceptance criteria
    - Run `straion find-rules` for this task:
      ```bash
@@ -89,12 +91,12 @@ Execute the validated tasks while maintaining compliance.
 
 ## Workflow Modes
 
-| Mode | When | Flow |
-|------|------|------|
-| Full | Starting from rough idea | Step 1 → 2 → 3 → 4 |
-| From Spec | Have existing spec | Step 2 → 3 → 4 |
-| Validate Only | Just check compliance | Step 2 only |
-| Plan Only | Create validated implementation tasks | Step 3 only |
+| Mode          | When                                  | Flow               |
+| ------------- | ------------------------------------- | ------------------ |
+| Full          | Starting from rough idea              | Step 1 → 2 → 3 → 4 |
+| From Spec     | Have existing spec                    | Step 2 → 3 → 4     |
+| Validate Only | Just check compliance                 | Step 2 only        |
+| Plan Only     | Create validated implementation tasks | Step 3 only        |
 
 ## User Interaction
 
@@ -109,6 +111,7 @@ See [references/EXAMPLE.md](references/EXAMPLE.md) for a complete SSO
 login implementation walkthrough.
 
 ## Reference
+
 - CLI usage: [../shared/STRAION_CLI.md](../shared/STRAION_CLI.md)
 - Terminology: [../shared/TERMINOLOGY.md](../shared/TERMINOLOGY.md)
 - Error handling: [../shared/ERROR_HANDLING.md](../shared/ERROR_HANDLING.md)
