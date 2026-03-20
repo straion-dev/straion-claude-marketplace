@@ -42,16 +42,27 @@ straion find-rules \
 
 ### Output
 
-JSON array of matching rules:
+Plain text, grouped by collection:
 
-```json
-[
-  {
-    "id": "RULE-123",
-    "content": "All API endpoints must implement JWT authentication",
-    "relevance": 0.95
-  }
-]
+```
+Found 3 matching rule(s):
+
+Collection name: Security Standards
+Rules:
+- All API endpoints must implement JWT authentication [IN_SCOPE] Reason: Task directly implements authentication
+- Tokens must be rotated every 24 hours [UNCERTAIN] Reason: Token refresh is mentioned but rotation policy unclear
+```
+
+Each rule includes:
+
+- **content**: The rule text
+- **scope**: `IN_SCOPE`, `UNCERTAIN`, or `OUT_OF_SCOPE`
+- **scopeReasoning**: Why the rule was classified with that scope
+
+When no rules match:
+
+```
+No matching rules found.
 ```
 
 ### Good Descriptions
