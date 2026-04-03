@@ -33,14 +33,13 @@ Run the Straion CLI to find matching rules:
 
 ```bash
 straion find-rules \
-  --session "<session_id>" \
   --title "<spec title>" \
   --body "<full spec content>" \
   --summary "<brief summary>"
 ```
 
 See [../shared/STRAION_CLI.md](../shared/STRAION_CLI.md) for full
-CLI reference and session ID details per agent.
+CLI reference.
 
 Analyze compliance for each returned rule:
 
@@ -65,7 +64,6 @@ Break down the validated spec into compliant implementation tasks.
    - Run `straion find-rules` for this task:
      ```bash
      straion find-rules \
-       --session "<session_id>" \
        --title "<task title>" \
        --body "<task description>" \
        --summary "<overall spec summary>"
